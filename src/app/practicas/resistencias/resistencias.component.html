@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-evenly">
+  <div class="col-">
+    <h1>Calculadora de resistencias</h1>
+    <form class="form-group" (click)="enviar()" class="form-group">
+      <label>Banda 1</label>
+      <input formControlName="banda1" type="number" class="form-control">
+      <label>Banda 2</label>
+      <input formControlName="banda2" type="number" class="form-control">
+      <label>Multiplicador</label>
+      <input formControlName="multiplicador" type="number" class="form-control">
+      <button type="submit" class="btn btn-info mt-3">
+        <i class="bi bi-calculator-fill"></i> Calcular
+      </button>
+    </form>
+    <div class="table-responsive">
+      <table class="table table-striped-columns">
+        <thead>
+          <tr>
+            <th>Banda 1</th>
+            <th>Banda 2</th>
+            <th>Multiplicador</th>
+            <th>Tolerancia</th>
+            <th>Valor</th>
+            <th>Minimo</th>
+            <th>Maximo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td [style.background-color]="banda1">{{
+              form.value.banda1 }}</td>
+            <td [style.background-color]="banda2">{{
+              form.value.banda2 }}</td>
+            <td [style.background-color]="multiplicador">{{
+              form.value.multiplicador }}</td>
+            <td [style.background-color]="tolerancia">{{
+              form.value.tolerancia }}</td>
+            <td>{{ res?.tot }}</td>
+            <td>{{ res?.min }}</td>
+            <td>{{ res?.max }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<h1>Calculadora de Distacias entre 2 puntos</h1>
+<div class="row">
+    <div class="col-6">
+        <div class="mb-3">
+            <mat-form-field>
+                <input matInput [(ngModel)]="x1" type="number" placeholder="Ingresa el valor de X1" >
+            </mat-form-field>
+        </div>
+        <div class="mb-3">
+            <mat-form-field>
+                <input matInput [(ngModel)]="y1" type="number" placeholder="Ingresa el valor de Y1" >
+            </mat-form-field>
+        </div>
+        <div class="mb-3">
+            <mat-form-field>
+                <input matInput [(ngModel)]="x2" type="number" placeholder="Ingresa el valor de X2" >
+            </mat-form-field>
+        </div>
+        <div class="mb-3">
+            <mat-form-field>
+                <input matInput [(ngModel)]="y2" type="number" placeholder="Ingresa el valor de Y2" >
+            </mat-form-field>
+        </div>
+        <div class="mb-3">
+            <button mat-raised-button (click)="calcularDistancias()"  color="primary">Calcular</button>
+        </div>
+    </div>
+    <div class="col-6">
+        <h1><p>El resultado es: {{resultado}}</p></h1>
+    </div>
+</div>
