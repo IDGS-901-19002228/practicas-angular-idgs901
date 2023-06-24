@@ -1,23 +1,77 @@
-<div class="d-flex justify-content-evenly">
-  <div class="col-">
-    <h1>Calculadora de resistencias</h1>
-    <form class="form-group" (click)="enviar()" class="form-group">
-      <label>Banda 1</label>
-      <input formControlName="banda1" type="number" class="form-control">
-      <label>Banda 2</label>
-      <input formControlName="banda2" type="number" class="form-control">
-      <label>Multiplicador</label>
-      <input formControlName="multiplicador" type="number" class="form-control">
-      <button type="submit" class="btn btn-info mt-3">
-        <i class="bi bi-calculator-fill"></i> Calcular
-      </button>
-    </form>
-    <div class="table-responsive">
-      <table class="table table-striped-columns">
+<div class="row">
+  <h1 class="text-center"><b>Resistencias</b></h1>
+  <div class="d-flex justify-content-evenly">
+    <div class="col-6">
+      <form class="form-group">
+        <label for="banda1">Banda 1</label>
+        <select class="form-control custom-select" id="banda1" name="banda1" [(ngModel)]="banda1">
+          <option value="0">Negro</option>
+          <option value="1">Cafe</option>
+          <option value="2">Rojo</option>
+          <option value="3">Naranja</option>
+          <option value="4">Amarillo</option>
+          <option value="5">Verde</option>
+          <option value="6">Azul</option>
+          <option value="7">Morado</option>
+          <option value="8">Gris</option>
+          <option value="9">Blanco</option>
+        </select>
+        <div class="form-group">
+          <label for="banda2">Banda 2</label>
+          <select class="form-control custom-select" id="banda2" name="banda1" [(ngModel)]="banda2">
+            <option value="0">Negro</option>
+            <option value="1">Cafe</option>
+            <option value="2">Rojo</option>
+            <option value="3">Naranja</option>
+            <option value="4">Amarillo</option>
+            <option value="5">Verde</option>
+            <option value="6">Azul</option>
+            <option value="7">Morado</option>
+            <option value="8">Gris</option>
+            <option value="9">Blanco</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="multiplicador">Multiplicador</label>
+          <select class="form-control custom-select" id="multiplicador" name="multiplicador" [(ngModel)]="multiplicador">
+            <option value="0">Negro</option>
+            <option value="1">Cafe</option>
+            <option value="2">Rojo</option>
+            <option value="3">Naranja</option>
+            <option value="4">Amarillo</option>
+            <option value="5">Verde</option>
+            <option value="6">Azul</option>
+            <option value="7">Morado</option>
+            <option value="8">Gris</option>
+            <option value="9">Blanco</option>
+          </select>
+        </div>
+        <!--<div class="form-group">
+          <label for="tolerancia">Tolerancia</label>
+          <select class="form-control custom-select" id="tolerancia" name="tolerancia" [(ngModel)]="tolerancia">
+            <option value="1">Dorado</option>
+            <option value="2">Plateado</option>
+          </select>
+        </div>-->
+        <br>
+        <div class="form-check" *ngFor="let op of tipoOperaciones">
+          <input class="form-check-input" type="radio" name="opciones" [(ngModel)]="operacionSeleccionada" [value]="op">
+          <label class="form-check-label" style="margin: 10px;">
+            {{op}}
+          </label>
+        </div>
+        <br>
+        <div class="mb-3">
+          <button class="btn btn-primary" (click)="calcularResistencia()">Calcular</button>
+        </div>
+      </form>
+    </div>
+    <div class="table"><!-- -responsive -->
+      <table class="table table-striped">
         <thead>
           <tr>
-            <th>Banda 1</th>
-            <th>Banda 2</th>
+            <th>Banda1</th>
+            <th>Banda2</th>
             <th>Multiplicador</th>
             <th>Tolerancia</th>
             <th>Valor</th>
@@ -27,20 +81,17 @@
         </thead>
         <tbody>
           <tr>
-            <td [style.background-color]="banda1">{{
-              form.value.banda1 }}</td>
-            <td [style.background-color]="banda2">{{
-              form.value.banda2 }}</td>
-            <td [style.background-color]="multiplicador">{{
-              form.value.multiplicador }}</td>
-            <td [style.background-color]="tolerancia">{{
-              form.value.tolerancia }}</td>
+            <td class="banda banda1" [style.background-color]="showColors ? setColor(banda1) : ''"></td>
+            <td class="banda banda2" [style.background-color]="showColors ? setColor(banda2) : ''"></td>
+            <td class="banda multiplicador" [style.background-color]="showColors ? setColor(multiplicador) : ''"></td>
+            <td class="banda tolerancia" [style.background-color]="showColors ? setTolerancia(operacionSeleccionada) : ''"></td>
             <td>{{ res?.tot }}</td>
             <td>{{ res?.min }}</td>
             <td>{{ res?.max }}</td>
           </tr>
         </tbody>
       </table>
+      <img class="image_url" src="https://www.tecnocursos.online/wp-content/uploads/2021/02/Tabla-de-colores-para-resistencias-electricas-1-768x512.png">
     </div>
   </div>
 </div>
