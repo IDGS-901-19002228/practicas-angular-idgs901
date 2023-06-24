@@ -53,7 +53,7 @@
             <option value="2">Plateado</option>
           </select>
         </div>-->
-        <br>
+        <label for="tolerancia">Tolerancia</label>
         <div class="form-check" *ngFor="let op of tipoOperaciones">
           <input class="form-check-input" type="radio" name="opciones" [(ngModel)]="operacionSeleccionada" [value]="op">
           <label class="form-check-label" style="margin: 10px;">
@@ -81,13 +81,13 @@
         </thead>
         <tbody>
           <tr>
-            <td class="banda banda1" [style.background-color]="showColors ? setColor(banda1) : ''"></td>
-            <td class="banda banda2" [style.background-color]="showColors ? setColor(banda2) : ''"></td>
-            <td class="banda multiplicador" [style.background-color]="showColors ? setColor(multiplicador) : ''"></td>
-            <td class="banda tolerancia" [style.background-color]="showColors ? setTolerancia(operacionSeleccionada) : ''"></td>
-            <td>{{ res?.tot }}</td>
-            <td>{{ res?.min }}</td>
-            <td>{{ res?.max }}</td>
+            <td class="banda banda1" [style.background-color]="Colores ? mostrarColor(banda1) : ''"></td>
+            <td class="banda banda2" [style.background-color]="Colores ? mostrarColor(banda2) : ''"></td>
+            <td class="banda multiplicador" [style.background-color]="Colores ? mostrarColor(multiplicador) : ''"></td>
+            <td class="banda tolerancia" [style.background-color]="Colores ? colorTolerancia(operacionSeleccionada) : ''"></td>
+            <td>{{ tot }}</td>
+            <td>{{ min }}</td>
+            <td>{{ max }}</td>
           </tr>
         </tbody>
       </table>

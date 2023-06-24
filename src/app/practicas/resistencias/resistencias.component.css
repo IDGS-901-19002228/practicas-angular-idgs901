@@ -31,7 +31,7 @@
 }
 
 .image_url{
-  width: 400px;
+  width: 500px;
   height: 300px;
 }
 
@@ -50,4 +50,14 @@
 .btn-primary:focus,
 .btn-primary.focus {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+h1{
+
+  color: #fff;
+
+}
+
+label{
+  color: #fff;
 }

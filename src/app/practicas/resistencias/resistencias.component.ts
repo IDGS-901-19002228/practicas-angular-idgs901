@@ -9,52 +9,43 @@ import { Component } from '@angular/core';
 
 export class ResistenciasComponent {
 
-  res: any = {};
+  tot!: number;
+  min!: number;
+  max!: number;
   banda1!: string;
   banda2!: string;
   multiplicador!: string;
   tolerancia!: string;
-  showColors: boolean = false;
+  Colores: boolean = false;
 
-  operacionSeleccionada:string='Dorado';
-  tipoOperaciones=[
-    'Dorado',
-    'Plata',
-  ];
+  operacionSeleccionada: string = 'Dorado';
+  tipoOperaciones = ['Dorado', 'Plata'];
+
+
 
   calcularResistencia() {
-    this.banda1 = this.banda1;
-    this.banda2 = this.banda2;
-    this.multiplicador = this.multiplicador;
-    //this.tolerancia = this.tolerancia;
+    const banda1Value = parseInt(this.banda1);
+    const banda2Value = parseInt(this.banda2);
+    const multiplicadorValue = parseInt(this.multiplicador);
 
-    this.res.tot = (parseInt(this.banda1) * 10 + parseInt(this.banda2)) * Math.pow(10, parseInt(this.multiplicador));
-    //1 = dorado
+    this.tot = (banda1Value * 10 + banda2Value) * Math.pow(10, multiplicadorValue);
 
-    switch(this.operacionSeleccionada){
+    switch (this.operacionSeleccionada) {
       case 'Dorado':
-        this.res.min = this.res.tot - (this.res.tot * 0.05);
-        this.res.max = this.res.tot + (this.res.tot * 0.05);
+        this.min = this.tot - (this.tot * 0.05);
+        this.max = this.tot + (this.tot * 0.05);
         break;
       case 'Plata':
-        this.res.min = this.res.tot - (this.res.tot * 0.1);
-        this.res.max = this.res.tot + (this.res.tot * 0.1);
+        this.min = this.tot - (this.tot * 0.1);
+        this.max = this.tot + (this.tot * 0.1);
         break;
     }
 
-    /*if (this.tolerancia === 'Dorado') {
-      this.res.min = this.res.tot - (this.res.tot * 0.05);
-      this.res.max = this.res.tot + (this.res.tot * 0.05);
-    } else {
-      this.res.min = this.res.tot - (this.res.tot * 0.1);
-      this.res.max = this.res.tot + (this.res.tot * 0.1);
-    }*/
-
-    this.showColors = true;
-    
+    this.Colores = true;
   }
+  
 
-  setColor(color: string): string {
+  mostrarColor(color: string): string {
     const colores: { [key: string]: string } = {
       '0': '#000000',
       '1': '#541204',
@@ -71,9 +62,9 @@ export class ResistenciasComponent {
     return colores[color];
   }
 
-  setTolerancia(color: string): string {
+  colorTolerancia(color: string): string {
     const colores: { [key: string]: string } = {
-      'Dorado': '#FFD700',
+      'Dorado': '#efb810',
       'Plata': '#C0C0C0'
     };
 
