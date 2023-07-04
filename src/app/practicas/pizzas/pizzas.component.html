@@ -1,0 +1,146 @@
+<div class="row">
+    <!--<h1>Pizzeria</h1>-->
+    <form (ngSubmit)="onSubmit()" [formGroup]="pizzaForm" >
+        <h3>Datos Cliente</h3>
+        <div class="row">
+            <div class="col-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" formControlName="nombre" id="nombre" required class="form-control">
+                <div *ngIf="pizzaForm.get('nombre')?.touched && pizzaForm.get('nombre')?.errors?.['required']" class="alert alert-danger">
+                    Este campo es requerido
+                <!--- XXXXXXXXXXXXXXXXXXXXX -->
+                <div *ngIf="pizzaForm.get('nombre')?.touched && pizzaForm.get('nombre')?.errors?.['minlength']" class="alert alert-danger">
+                    El nombre debe debe contener al menos {{pizzaForm.get('nombre')?.errors?.['minlength']?.requiredLength}} caracteres
+                </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <label for="direccion" class="form-label">Direccion</label>
+                <input type="text" formControlName="direccion" id="direccion" required class="form-control">
+                <div *ngIf="pizzaForm.get('direccion')?.touched && pizzaForm.get('direccion')?.errors?.['required']" class="alert alert-danger">
+                    Este campo es requerido
+                </div>
+                <!--- XXXXXXXXXXXXXXXXXXXXX -->
+                <div *ngIf="pizzaForm.get('direccion')?.touched && pizzaForm.get('direccion')?.errors?.['minlength']" class="alert alert-danger">
+                    La direccion debe ser mas larga que {{pizzaForm.get('direccion')?.errors?.['minlength']?.requiredLength}}
+                </div>
+            </div>
+            <div class="col-3">
+                <label for="tel" class="form-label">Telefono</label>
+                <input type="text" formControlName="tel" id="tel" required class="form-control">
+                <div *ngIf="pizzaForm.get('tel')?.touched && pizzaForm.get('tel')?.errors?.['required']" class="alert alert-danger">
+                    Este campo es requerido
+                </div>
+                <div *ngIf="pizzaForm.get('tel')?.touched && pizzaForm.get('tel')?.errors?.['minlength']" class="alert alert-danger">
+                    El telefono debe contener {{pizzaForm.get('tel')?.errors?.['minlength']?.requiredLength}} digitos
+                </div>
+            </div>
+            <div class="col-3">
+                <label for="fecha" class="form-label">Fecha</label>
+                <input type="text" formControlName="fecha" id="fecha" required class="form-control">
+                <div *ngIf="pizzaForm.get('fecha')?.touched && pizzaForm.get('fecha')?.errors?.['required']" class="alert alert-danger">
+                    Este campo es requerido
+                </div>
+                <br>
+            </div>
+            <h3>Datos Pizza</h3>
+            <div class="col-3">
+                <label for="tamano" class="form-label">Tamaño Pizza:</label>
+                <br>
+                <div>
+                    <label class="radio-buton">
+                        <input class="radio" type="radio" formControlName="tamano" value="Chica"> Chica ($40)
+                    </label>
+                </div>
+                <div>
+                    <label class="radio-buton">
+                        <input class="radio" type="radio" formControlName="tamano" value="Mediana"> Mediana ($80)
+                    </label>
+                </div>
+                <div>
+                    <label class="radio-buton">
+                        <input class="radio" type="radio" formControlName="tamano" value="Grande"> Grande ($120)
+                    </label>
+                </div>
+                <div *ngIf="pizzaForm.get('tamano')?.touched && pizzaForm.get('tamano')?.errors?.['required']" class="alert alert-danger">
+                    Este campo es requerido
+                </div>
+            </div>
+            <div class="col-3">
+                <label for="ingredientes" class="form-label">Ingredientes:</label>
+                <div>
+                    <label class="checkbox">
+                        <input type="checkbox" formControlName="peperoni"> Peperoni ($10)
+                        <div *ngIf="pizzaForm.get('peperoni')?.touched && pizzaForm.get('peperoni')?.errors?.['required']" class="alert alert-danger">
+                            Este campo es requerido
+                        </div>
+                    </label>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <input class="checkbox" type="checkbox" formControlName="pina"> Piña ($10)
+                        <div *ngIf="pizzaForm.get('pina')?.touched && pizzaForm.get('pina')?.errors?.['required']" class="alert alert-danger">
+                            Este campo es requerido
+                        </div>
+                    </label>
+                </div>
+                <div>
+                    <label class="checkbox">
+                        <input class="checkbox" type="checkbox" formControlName="champinones"> Champiñones ($10)
+                        <div *ngIf="pizzaForm.get('champinones')?.touched && pizzaForm.get('champinones')?.errors?.['required']" class="alert alert-danger">
+                            Este campo es requerido
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="col-3">
+                <label for="cantidad_Pizzas" class="form-label">Cantidad de pizzas</label>
+                <input type="number" formControlName="cantidad_Pizzas" id="cantidad_Pizzas" required class="form-control">
+                <div *ngIf="pizzaForm.get('cantidad_Pizzas')?.touched && pizzaForm.get('cantidad_Pizzas')?.errors?.['required']" class="alert alert-danger">
+                    Este campo es requerido
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="float-start">
+            <button type="submit" class="btn btn-primary">Ordenar</button>
+        </div>
+    </form>
+    <div class="col-10">
+        <hr>
+        <h3>Registro de ventas</h3>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tamaño</th>
+                        <th>Ingredientes</th>
+                        <th>Num. pizzas</th>
+                        <th>Sub Total</th>
+                        <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Tel</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pizza of pizzas">
+                        <td>{{ pizza.tamano }}</td>
+                        <td>{{ obtenerIngredientes(pizza) }}</td>
+                        <td>{{ pizza.cantidad_Pizzas }}</td>
+                        <td>{{ calcularSubtotal(pizza) }}</td>
+                        <td>{{ pizza.nombre }}</td>
+                        <td>{{ pizza.direccion }}</td>
+                        <td>{{ pizza.tel }}</td>
+                        <td>{{ pizza.fecha }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-2">
+        <hr>
+        <h1>Ventas del dia:</h1>
+        <h1>{{ calcularTotalVentas() }}</h1>
+    </div>
+</div>

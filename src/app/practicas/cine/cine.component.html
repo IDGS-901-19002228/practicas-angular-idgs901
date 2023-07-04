@@ -1,0 +1,55 @@
+<div class="row">
+    <!--<h1>Pizzeria</h1>-->
+    <form (ngSubmit)="onSubmit()" [formGroup]="cineForm">
+        <h3>Datos compra</h3>
+        <div class="row">
+            <div class="col-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" formControlName="nombre" id="nombre" required class="form-control">
+            </div>
+            <div class="col-2">
+                <label for="cantidad_Boletos" class="form-label">Cantidad Boletos</label>
+                <input type="text" formControlName="cantidad_Boletos" id="cantidad_Boletos" required class="form-control">
+                <div *ngIf="cineForm.get('cantidad_Boletos')?.touched && cineForm.get('cantidad_Boletos')?.errors?.['maxlength']" class="alert alert-danger">
+                    El telefono debe contener {{cineForm.get('cantidad_Boletos')?.errors?.['maxlength']?.requiredLength}} digitos
+                </div>
+            </div>
+            <br>
+            <div class="col-2">
+                <label for="tamano" class="form-label">Tarjeta Cineco:</label>
+                <br>
+                <div>
+                    <label class="radio-buton">
+                        <input class="radio" type="radio" formControlName="tarjeta" value="Si"> Si
+                    </label>
+                    <label class="radio-buton">
+                        <input class="radio" type="radio" formControlName="tarjeta" value="No"> No
+                    </label>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="float-start">
+            <button type="submit" class="btn btn-primary">Pagar</button>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Num. boletos</th>
+                    <th>Tarjeta</th>
+                    <th>Total a pagar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cine of cines">
+                    <td>{{ cine.nombre }}</td>
+                    <td>{{ cine.cantidad_Boletos }}</td>
+                    <td>{{ cine.tarjeta }}</td>
+                    <td>{{ calcularDescuento(cine) }}</td>
+                </tr>
+            </tbody>
+        </table>
+</div>
