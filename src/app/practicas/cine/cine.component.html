@@ -1,18 +1,26 @@
 <div class="row">
     <!--<h1>Pizzeria</h1>-->
+    <div class="alert alert-success" *ngIf="showAlert && alertType === 'success'">
+        Compra realizada con éxito.
+    </div>  
+    <div class="alert alert-danger" *ngIf="showAlert && alertType === 'error'">
+        Solo se pueden comprar 7 boletos por persona.
+    </div>      
     <form (ngSubmit)="onSubmit()" [formGroup]="cineForm">
-        <h3>Datos compra</h3>
+        <h1>Datos compra</h1>
+        <h3>Precio del bolteo: $12,000</h3>
         <div class="row">
             <div class="col-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" formControlName="nombre" id="nombre" required class="form-control">
             </div>
+            <div class="col-3">
+                <label for="cantidad_compradores" class="form-label">Cantidad compradores</label>
+                <input type="text" formControlName="cantidad_compradores" id="cantidad_compradores" required class="form-control">
+            </div>
             <div class="col-2">
                 <label for="cantidad_Boletos" class="form-label">Cantidad Boletos</label>
                 <input type="text" formControlName="cantidad_Boletos" id="cantidad_Boletos" required class="form-control">
-                <div *ngIf="cineForm.get('cantidad_Boletos')?.touched && cineForm.get('cantidad_Boletos')?.errors?.['maxlength']" class="alert alert-danger">
-                    El telefono debe contener {{cineForm.get('cantidad_Boletos')?.errors?.['maxlength']?.requiredLength}} digitos
-                </div>
             </div>
             <br>
             <div class="col-2">
@@ -27,17 +35,24 @@
                     </label>
                 </div>
             </div>
+            <div class="col-2" >
+                <h1>Total a pagar</h1>
+                <p *ngFor="let cine of cines">{{calcularDescuento(cine)}}</p>
+            </div>
         </div>
         <br>
         <div class="float-start">
             <button type="submit" class="btn btn-primary">Pagar</button>
         </div>
     </form>
+
     <div class="table-responsive">
+        <br>
         <table class="table">
             <thead>
                 <tr>
                     <th>Nombre</th>
+                    <th>Numero de compradores</th>
                     <th>Num. boletos</th>
                     <th>Tarjeta</th>
                     <th>Total a pagar</th>
@@ -46,10 +61,12 @@
             <tbody>
                 <tr *ngFor="let cine of cines">
                     <td>{{ cine.nombre }}</td>
+                    <td>{{ cine.cantidad_compradores }}</td>
                     <td>{{ cine.cantidad_Boletos }}</td>
                     <td>{{ cine.tarjeta }}</td>
                     <td>{{ calcularDescuento(cine) }}</td>
                 </tr>
             </tbody>
         </table>
+    </div>
 </div>

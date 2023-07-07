@@ -12,4 +12,20 @@ h1,h2,h3,label{
     color: #fff;
 }
 
+.alert {
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+
   
